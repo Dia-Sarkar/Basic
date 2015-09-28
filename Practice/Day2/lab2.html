@@ -1,0 +1,203 @@
+<html>
+<head>
+	<script src="lib/ext-all-debug.js"></script>
+	<link rel="stylesheet" href="lib/theme-neptune-all.css">
+	<script>
+	Ext.define("Random",{
+			singleton : true,
+			config : {
+				randomNumber : ""
+			},
+			constructor : function(){
+				this.setRandomNumber(Ext.Number.randomInt(1,100));
+				console.log(this.getRandomNumber());
+			},
+			regenerate : function(){
+				this.setRandomNumber(Ext.Number.randomInt(1,100));
+				console.log(this.getRandomNumber());
+			}
+
+		});
+	Ext.define("Attempts",{
+			//singleton : true,
+			statics : {
+				numberOfAttempts : 0
+			},
+			
+			constructor : function(){
+				//this.initConfig(data);
+				this.statics().numberOfAttempts++;
+				console.log("attemps "+ this.statics().numberOfAttempts);
+			},
+			resetAttempts : function()
+			{
+				this.statics().numberOfAttempts = 0;	
+			},
+			getNumberOfAttempts : function()
+			{
+				return this.statics().numberOfAttempts;
+			}
+		});
+	Ext.define("Guessing",{
+			singleton : true,
+			config : {
+				randomNumber : "",
+				usernumber : "",
+			},
+			constructor : function(){
+				//this.initConfig(data);
+				//console.log(this.getRandomNumber());
+			},
+			compare : function(){
+
+				if(this.getRandomNumber() > this.getUsernumber())
+				{
+					Ext.getCmp("messagelabel").setHtml("Aim Higher");
+					Ext.getCmp("number").selectText();
+				}
+				else if (this.getRandomNumber() < this.getUsernumber())
+				{
+					Ext.getCmp("messagelabel").setHtml("Aim Lower");
+					Ext.getCmp("number").selectText();
+				}
+				else 
+				{
+					Ext.getCmp("messagelabel").setHtml("Done");
+					var window = Ext.create("Window",{
+					});
+					window.showWindow();
+					
+			}
+		}
+		});
+		Ext.define("Window",{
+			//singleton : true,
+			
+			showWindow : function(){
+				var attempts = Attempts.numberOfAttempts;
+				attempts++;
+
+				Ext.create('Ext.window.Window', {
+    				title: 'Game Over',
+    				height: 200,
+    				width: 400,
+    				id : 'window1',
+    				layout : "vbox",
+   				 items: [
+					{
+						xtype : "label",
+						html : "You got it in "+attempts+"Attemps.Do you want to play a new Game ? ",
+						
+					},
+					],
+					buttons :[
+					{
+						//xtype : "button",
+						//buttonAlign : 'left',
+						text : "Yes",
+						id : "yes",
+						listeners : {
+							click : yesButtonClicked,
+						}
+					},
+
+						{
+						//xtype : "button",
+						//buttonAlign : 'right',
+						text : "No",
+						id : "no",
+						listeners : {
+							click : noButtonClicked,
+						}
+					},
+					],
+
+					}).show();
+				}
+			//}
+		});
+		
+
+
+	function yesButtonClicked()
+	{
+		Ext.getCmp("window1").close();
+		Random.regenerate();
+		Ext.getCmp("number").setValue("");
+		Ext.getCmp("messagelabel2").setText("");
+		Ext.getCmp("messagelabel1").setText("");
+		var attemps1=  Ext.create("Attempts",{
+		});
+		attemps1.resetAttempts();
+
+
+
+
+
+	}
+		function noButtonClicked()
+	{
+		Ext.getCmp("play").setDisabled(true);
+		Ext.getCmp("window1").close();
+	}
+	function playButtonClicked(){
+
+			var r = Random.getRandomNumber();
+			console.log("here "+r);
+			var usernumber = Ext.getCmp("number").getValue();
+			Guessing.setRandomNumber(r);
+			Guessing.setUsernumber(usernumber);
+			Guessing.compare();
+			var attemps=  Ext.create("Attempts",{
+		});
+			Ext.getCmp("messagelabel2").setHtml("Attempts : "+ attemps.getNumberOfAttempts());
+
+
+
+
+		}
+		Ext.application({
+			name : "Guessing Game",
+			launch : function(){
+				Ext.create("Ext.panel.Panel",{
+					title : "Guessing Game",
+					layout : "vbox",
+					border : true,
+					items : [
+					{
+						xtype : "textfield",
+						fieldLabel : "Number",
+						id : "number"
+					},
+					{
+						xtype : "button",
+
+						text : "Play",
+						id : "play",
+						listeners : {
+							click : playButtonClicked,
+						}
+					},
+
+						{
+							xtype : "label",
+							id : "messagelabel",
+							html : ""
+						},
+						{
+							xtype : "label",
+							id : "messagelabel2",
+							html : ""
+						}
+
+					],
+					renderTo : Ext.getBody()
+				});
+
+			}
+
+
+		});
+	</script>
+</head>
+</html>

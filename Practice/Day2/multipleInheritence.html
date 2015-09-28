@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<script src="lib/ext-all-debug.js"></script>
+		<script>
+		Ext.define("Shape",{
+			config : {
+				name : ""
+			},
+			draw : function(){
+				this.setName("Dia");
+				console.log(this.getName());
+			}
+		});
+		Ext.define("Figure",{
+			config :
+			{
+				name : ""
+			},
+			draw : function(){
+				this.setName("Sarkar");
+				console.log(this.getName());
+			}
+		});
+		//class Circle implements Shape,Figure{}
+		Ext.define("Circle",{
+			mixins : ["Figure","Shape"]
+
+		});
+		var c1 = Ext.create("Circle",{});
+		c1.draw();
+		//c1.erase();
+		</script>
+	</head>	
+</html>

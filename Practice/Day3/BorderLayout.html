@@ -1,0 +1,143 @@
+<html>
+	<head>
+		<script src="lib/ext-all-debug.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/theme-neptune-all.css">
+		<script>
+		Ext.application({
+				name : "Data",
+				launch : function(){
+					Ext.create("Ext.panel.Panel",{
+						title : "Layout",
+						width : "100%",
+						height : "100%",
+						// defaults : {
+
+						// 	            xtype : "button",
+						// 				width : 100,
+						// 				height : 100,
+						// 				//margin : "5"
+
+						// },
+						// layout : {
+						// 	type : "vbox",
+						// 	align : "middle",
+						// 	pack : "center"
+						// },
+						layout : {
+							type : "border",
+							
+						},
+
+						items : [
+						{
+										
+										xtype : "panel",
+										html : "Top Menu",
+										region : "north",
+										height : 50,
+										defaults : {
+											xtype : "button",
+											width : 100,
+											padding : 4,
+											margin : 10
+										},
+										items : [
+											{
+												text : "File",
+												menu : {
+													xtype : "menu",
+													items : [
+													{text : "Open"},
+													{text : "Save"}
+
+													]
+												}
+
+											},
+											{
+												text : "Edit",
+												menu : {
+													xtype : "menu",
+													items : [
+													{text : "Copy"},
+													{text : "Paste"}
+
+													]
+												}
+												
+											},
+											{
+												text : "View",
+												menu : {
+													xtype : "menu",
+													items : [
+													{text : "Open"},
+													{text : "Save"}
+
+													]
+												}
+												
+											}
+										]
+										
+										
+
+									},
+									{
+										
+										xtype : "panel",
+										html : "Side Bar",
+										region : "west",
+										width : 200,
+										collapsible : true,
+										layout : "accordion",
+										items : [
+
+                                       			{xtype : "panel",title : "Inbox"},
+                                       			{xtype : "panel",title : "Drafts"},
+                                       			{xtype : "panel",title : "Outbox"},
+                                       			{xtype : "panel",title : "Folders"},
+										]
+										
+										
+
+									},
+									{
+										xtype : "tabpanel",
+										region : "center",
+										items : [
+                                         		{ xtype:"panel",title:"Mail"},
+                                         		{ xtype:"panel",title:"Promotion"},
+                                         		{ xtype:"panel",title:"Social"}
+
+										]
+									}
+									// {
+										
+									// 	xtype : "panel",
+									// 	html : "Main Content",
+									// 	region : "center",
+									// 	//width : 50
+										
+										
+									// },
+									// {
+										
+									// 	xtype : "panel",
+									// 	html : "Top Menu",
+									// 	region : "north",
+									// 	height : 50
+										
+
+									// },
+						],
+						renderTo : Ext.getBody()
+					}
+						)
+
+				}
+
+			});
+		</script>
+	</head>
+</html>

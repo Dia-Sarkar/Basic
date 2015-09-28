@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<script src="lib/ext-all-debug.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/theme-neptune-all.css">
+		<script>
+		Ext.application({
+				name : "Data",
+				launch : function(){
+					Ext.create("Ext.panel.Panel",{
+						title : "Layout",
+						width : "100%",
+						height : "100%",
+						defaults : {
+
+							            xtype : "button",
+										width : 100,
+										height : 100,
+										margin : "5"
+
+						},
+						// layout : {
+						// 	type : "vbox",
+						// 	align : "middle",
+						// 	pack : "center"
+						// },
+						layout : {
+							type : "table",
+							columns : 2,
+							align : "middle",
+							pack : "center"
+						},
+
+						items : [
+						{
+										
+										text : "East",
+										id : "east",
+										
+										
+
+									},
+									{
+										
+										text : "West",
+										id : "west",
+										
+										
+
+									},
+									{
+										
+										text : "North",
+										id : "north",
+										
+										
+									},
+									{
+										
+										text : "South",
+										id : "south",
+										
+
+									},
+						],
+						renderTo : Ext.getBody()
+					}
+						)
+
+				}
+
+			});
+		</script>
+	</head>
+</html>

@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<script src="lib/ext-all-debug.js"></script>
+		<link rel="stylesheet" href="lib/theme-neptune-all.css">
+		<script>
+		Ext.application({
+			name : "Hello",
+			launch : function(){
+				Ext.create("Ext.panel.Panel",{
+					title : "Login",
+					layout : "vbox",
+					border : true,
+					items : [
+
+						//Ext.create("Ext.form.Label",{
+							//html : "Login"
+							//this.setStyle({
+
+							//})	
+						//}),
+						Ext.create("Ext.form.field.Text",{
+							fieldLabel : "UserName",	
+							id : "username"
+						}),
+						Ext.create("Ext.form.field.Text",{
+							fieldLabel : "Password"	,
+							id : "password"
+						}),
+						Ext.create("Ext.button.Button",{
+							text : "SUBMIT",
+							listeners : {
+							click : function(){
+								var name = Ext.getCmp("username").getValue();
+								var password = Ext.getCmp("password").getValue();
+								//alert(name);
+								
+								if (name=="admin" && password=="admin") {
+									this.setDisabled(true);
+									Ext.getCmp("username").setDisabled(true);
+									Ext.getCmp("password").setDisabled(true);
+									Ext.getCmp("output").setStyle({color : 'green'});
+									Ext.getCmp("output").setHtml("Loggin in...")
+
+								}
+								else
+								{
+									//alert("Error Login")
+									Ext.getCmp("output").setStyle({color : 'red'});
+									Ext.getCmp("output").setHtml("Invalid Credential...");
+								}
+							
+							}
+						},
+						}),
+						Ext.create("Ext.form.Label",{
+							html : "",	
+							id : "output",
+
+						})
+
+					],
+
+					renderTo : Ext.getBody()
+				});
+				
+				
+			}
+		});
+		</script>
+	</head>	
+</html>

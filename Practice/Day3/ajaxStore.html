@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<script src="lib/ext-all-debug.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/theme-neptune-all.css">
+		<script>
+			Ext.define("CountryStore", {
+				extend : "Ext.data.Store",
+				fields : ["country","capital"],
+				
+				autoLoad : false,
+				proxy : {
+					type : "ajax",
+					api :
+					{
+						read : "/countries",
+						create : "/addCountries",
+						destroy : "/delCountries",
+						update : "/updateCountries"
+					},
+					//url : "/countries",
+					reader : {
+						type : "json",
+						rootProperty : "globe"
+					}
+				}
+				
+			});
+			var countryStoreObj = Ext.create("CountryStore");
+			function dataStoremethod()
+			{
+				var country1 = Ext.getCmp("countryLabel").getValue();
+				var capital1 = Ext.getCmp("capitalLabel").getValue();
+				console.log("Country : "+country1 );
+				console.log("Capital : "+capital1);
+				countryStoreObj.add({country : country1 , capital: capital1});
+				countryStoreObj.sync();
+			}
+			
+			
+			Ext.application({
+				name : "Data",
+				launch : function(){
+					Ext.create("Ext.panel.Panel",{
+						title : "Store",
+						items : [
+						{
+										xtype : "textfield",
+										fieldLabel : "Country",
+										id : "countryLabel"
+								
+									},
+									{
+										xtype : "textfield",
+										fieldLabel : "Capital",
+										id : "capitalLabel"
+								
+									},
+									{
+										xtype : "button",
+										text : "Add",
+										id : "addbutton",
+										listeners : {
+											click : dataStoremethod,
+										}
+
+									},
+						
+						{
+						xtype : "grid",
+    					title: 'CountryGrid',
+    					
+    					store : countryStoreObj,
+    					columns: [
+       					{ header: 'Country', dataIndex: 'country' },
+        				{ header: 'Capital', dataIndex: 'capital', flex: 1 },
+        				
+    					],
+    					listeners : {
+    						headerclick : function(){
+    							if(countryStoreObj.getTotalCount() == 0)
+    								countryStoreObj.load();
+    						}
+    					},
+					    height: 200,
+					    width: 400,
+					   
+						}
+						],
+						renderTo : Ext.getBody()
+					}
+						)
+
+				}
+
+			});
+		</script>
+
+	</head>
+</html>

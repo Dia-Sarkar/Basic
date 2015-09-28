@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<script src="lib/ext-all-debug.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/theme-neptune-all.css">
+		<script>
+		Ext.application({
+			name: "Layout",
+			launch : function (){
+				
+			}
+
+		})
+
+		</script>
+	</head>
+</html>

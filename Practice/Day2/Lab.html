@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<script src="lib/ext-all-debug.js"></script>
+		<script>
+			Ext.define("Account", {
+				config : {
+				balance : 0
+			},
+			constructor : function(data){
+				this.initConfig(data);
+			},
+			deposit : function(amount){
+
+				//this.setBalance(this.getBalance()+amount);
+				this.config.balance += amount; 
+			},
+			withdraw : function(amount){
+				//this.setBalance(this.getBalance()-amount);
+				this.config.balance -= amount;
+			},
+			balance : function  () {
+				//return this.getBalance();
+				return this.config.balance;
+			}
+
+				
+			});
+			var a1 =  Ext.create("Account",{
+			balance : 10000,
+		});
+			console.log("Balance Before: "+a1.balance());
+			a1.deposit(100);
+			a1.withdraw(1000);
+			console.log("Balance After: "+a1.balance());
+		</script>
+	</head>
+</html>

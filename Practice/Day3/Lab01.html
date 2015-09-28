@@ -1,0 +1,131 @@
+
+<html>
+	<head>
+		<script src="lib/ext-all-debug.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/theme-neptune-all.css">
+		<script >
+			
+			Ext.define("DetailModel",{
+				extend : "Ext.data.Model",
+				fields : ["name","age"]
+			});
+			Ext.define("DetailStore", {
+				extend : "Ext.data.Store",
+				//fields : ["country","capital"],
+				model : "DetailModel",
+				//data : [
+					//{country : "India", capital:"New Delhi"},
+					//{country : "USA", capital:"Washington DC"},
+					//{country : "UK", capital:"London"}
+				//]
+			});
+			var detailStoreObj = Ext.create("DetailStore");
+			function dataStoremethod()
+			{
+				var name1 = Ext.getCmp("nameLabel").getValue();
+				var age1 = Ext.getCmp("ageLabel").getValue();
+				console.log("Name : "+name1 );
+				console.log("Age : "+age1);
+				detailStoreObj.add({name : name1 , age: age1});
+				
+				//console.log (detailStoreObj.age);
+
+
+			}
+			/*function dataDisplayMethod()
+			{
+					Ext.create('Ext.grid.Panel', {
+	    			title: 'Display details',
+				    store : detailStoreObj,
+				    columns: [
+				        { text: 'Name', dataIndex: 'name' },
+				        { text: 'Age', dataIndex: 'age'},
+				        
+				    ],
+
+				    height: 200,
+				    width: 400,
+				    renderTo: Ext.getBody()
+				});
+			}*/
+			Ext.application({
+							name : "Data",
+							launch : function(){
+								Ext.create("Ext.panel.Panel",{
+									title : "Store",
+									items : [
+									{
+										xtype : "textfield",
+										fieldLabel : "Name",
+										id : "nameLabel"
+								
+									},
+									{
+										xtype : "textfield",
+										fieldLabel : "Age",
+										id : "ageLabel"
+								
+									},
+									{
+										xtype : "button",
+										text : "Add",
+										id : "addbutton",
+										listeners : {
+											click : dataStoremethod,
+										}
+
+									},
+									//Ext.create('Ext.grid.Panel', {
+										{
+											xtype : "grid",
+					    			title: 'Display details',
+								    store : detailStoreObj,
+								    columns: [
+								        { text: 'Name', dataIndex: 'name',
+								        	//editor : {
+								        		//xtype : "textfield",
+								        		//allowBlank : false
+								        	//}
+								         },
+								        { text: 'Age', dataIndex: 'age',
+								        	editor : {
+								        		xtype : "textfield",
+								        		allowBlank : false
+								        	}
+								    },
+								        
+								    ],
+								    selType : "cellmodel",
+
+									plugins: [
+        								Ext.create('Ext.grid.plugin.CellEditing', {
+            							clicksToEdit: 1
+        								})
+        							] ,
+
+								    height: 200,
+								    width: 200,
+								    renderTo: Ext.getBody()
+								}
+									/*{
+										xtype : "button",
+										text : "Display",
+										id : "displaybutton",
+										listeners : {
+											click : dataDisplayMethod,
+										}
+
+									}*/
+
+									],
+									renderTo : Ext.getBody()
+								}
+									)
+
+							}
+
+						});
+		</script>
+
+	</head>
+</html>
